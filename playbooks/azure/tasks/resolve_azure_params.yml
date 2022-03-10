@@ -1,0 +1,42 @@
+---
+- name: Get facts for one resource group
+  azure.azcollection.azure_rm_resourcegroup_info:
+    name: "{{ resource_group }}"
+    list_resources: true
+    subscription_id: "{{ azure_cloud_provider_subscription_id }}"
+    client_id: "{{ azure_cloud_provider_client_id }}"
+    secret: "{{ azure_cloud_provider_client_secret }}"
+    tenant:  "{{ azure_cloud_provider_tenant_id }}"
+  delegate_to: localhost
+  become: false
+  register: resource_group_info
+
+- name:
+  set_fact:
+    azure_network: "{{ resource_group_info.resourcegroups[0].resources | selectattr('type', 'equalto', 'Microsoft.Network/virtualNetworks') | first }}"
+    azure_cloud_provider_storage_account: "{{ resource_group_info.resourcegroups[0].resources | selectattr('type', 'equalto', 'Microsoft.Storage/storageAccounts') | first }}"
+
+- name: Get facts for one resource group
+  azure.azcollection.azure_rm_virtualnetwork_info:
+    resource_group: "{{ resource_group }}"
+    name: "{{ azure_network.name }}"
+    subscription_id: "{{ azure_cloud_provider_subscription_id }}"
+    client_id: "{{ azure_cloud_provider_client_id }}"
+    secret: "{{ azure_cloud_provider_client_secret }}"
+    tenant:  "{{ azure_cloud_provider_tenant_id }}"
+
+  delegate_to: localhost
+  become: false
+  register: virtualnetwork_info
+
+- name:
+  set_fact:
+    azure_network_subnet: "{{ virtualnetwork_info.virtualnetworks[0].subnets | first }}"
+
+- name:
+  set_fact:
+    azure_cloud_provider_resource_group: "{{ resource_group }}" # source: azure.azcollection.azure_rm inventory plugin
+    location: "{{ resource_group_info.resourcegroups[0].location }}"
+    azure_network_name: "{{ azure_network_subnet.name }}"
+    azure_network_cloud_subnet_id: "{{ azure_network_subnet.id }}"
+    azure_cloud_provider_storage_account_name: "{{ azure_cloud_provider_storage_account.name }}"

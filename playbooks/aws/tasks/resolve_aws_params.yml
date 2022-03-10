@@ -1,0 +1,41 @@
+---
+- amazon.aws.ec2_metadata_facts:
+
+- name: Calculate vpc_id fact name
+  set_fact:
+    vpc_id_fact_name: "ansible_ec2_network_interfaces_macs_{{ansible_ec2_mac.replace(':', '_')}}_vpc_id"
+
+- name: Set vpc_id
+  set_fact:
+    vpc_id: "{{ hostvars[inventory_hostname][vpc_id_fact_name] }}"
+
+- amazon.aws.ec2_group_info:
+    aws_access_key: "{{ aws_cloud_provider_access_key_id }}"
+    aws_secret_key: "{{ aws_cloud_provider_access_key_secret }}"
+    region: "{{ ansible_ec2_placement_region }}"
+    filters:
+      vpc-id: "{{ vpc_id }}"
+  register: vpc_security_groups_result
+
+- set_fact:
+    node_security_group: "{{ vpc_security_groups_result.security_groups | community.general.json_query('[?contains(group_name,`-node`)] | [0]')}}"
+    director_security_group: "{{ vpc_security_groups_result.security_groups | community.general.json_query('[?contains(group_name,`-headnode`)] | [0]')}}"
+
+- amazon.aws.ec2_vpc_subnet_info:
+    aws_access_key: "{{ aws_cloud_provider_access_key_id }}"
+    aws_secret_key: "{{ aws_cloud_provider_access_key_secret }}"
+    region: "{{ ansible_ec2_placement_region }}"
+    filters:
+      vpc-id: "{{ vpc_id }}"
+  register: vpc_subnets_result
+
+- set_fact:
+    public_subnet: "{{ vpc_subnets_result.subnets | community.general.json_query('[?contains(tags.Name, `public`)] | [0]')}}"
+    private_subnet: "{{ vpc_subnets_result.subnets | community.general.json_query('[?contains(tags.Name, `private`)] | [0]')}}"
+
+- set_fact:
+    aws_cloud_provider_ec2vpc_vpc_id: "{{ vpc_id }}"
+    aws_public_network_cloud_subnet_id: "{{ public_subnet.id }}"
+    aws_private_network_cloud_subnet_id: "{{ private_subnet.id }}"
+    aws_cloud_provider_ec2vpc_security_group_node: "{{ node_security_group.group_id }}"
+    aws_cloud_provider_ec2vpc_security_group_director: "{{ director_security_group.group_id }}"

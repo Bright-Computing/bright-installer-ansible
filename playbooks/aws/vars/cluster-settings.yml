@@ -1,0 +1,49 @@
+# General cluster settings
+external_interface: eth0
+external_ip_address: DHCP
+external_network_gateway: "{{ ansible_facts[external_interface].ipv4.address }}"
+management_interface: eth1
+management_ip_address: 10.142.255.254
+management_network_baseaddress: 10.142.0.0
+external_name_servers: [10.2.200.200]
+post_install_default_image_archive: '{{ ansible_env.HOME }}/RHEL8u5.tar.gz'
+timezone: Europe/Amsterdam
+license:
+  country: NL
+  state: Amsterdam
+  locality: Amsterdam
+  organization: Bright Computing
+  organizational_unit: Engineering 
+  cluster_name: BrightCluster
+  mac: "{{ ansible_default_ipv4.macaddress }}"
+
+# Cluster credentials
+product_key: ! vault <encrypted string>
+mysql_login_user: ! vault <encrypted string>
+mysql_login_password: ! vault <encrypted string>
+db_cmd_password: ! vault <encrypted string>
+slurm_user_pass: ! vault <encrypted string>
+ipmi_pass: ! vault <encrypted string>
+ldap_root_pass: ! vault <encrypted string>
+ldap_readonly_pass: ! vault <encrypted string>
+
+# AWS Settings
+cloud: aws
+aws_cloud_provider_default_director_type: t2.medium
+aws_cloud_provider_default_region: eu-west-1
+aws_cloud_provider_default_type: t3.medium
+aws_cloud_provider_image_owners: 137677339600
+aws_cloud_provider_ec2vpc_name: vpc-0
+aws_cloud_provider_ec2vpc_region: eu-west-1
+## The following are calculated in resolve_aws_params.yml
+aws_cloud_provider_ec2vpc_vpc_id:
+aws_public_network_cloud_subnet_id:
+aws_private_network_cloud_subnet_id:
+aws_cloud_provider_ec2vpc_security_group_node:
+aws_cloud_provider_ec2vpc_security_group_director:
+
+# AWS credentials
+aws_cloud_provider_username: ! vault <encrypted string>
+aws_cloud_provider_account_id: ! vault <encrypted string>
+aws_cloud_provider_access_key_id: ! vault <encrypted string>
+aws_cloud_provider_access_key_secret: ! vault <encrypted string>

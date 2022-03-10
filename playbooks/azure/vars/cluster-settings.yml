@@ -1,0 +1,44 @@
+# General cluster settings
+external_interface: eth0
+external_ip_address: DHCP
+external_network_gateway: "{{ ansible_facts[external_interface].ipv4.address }}"
+management_interface: eth1
+management_ip_address: 10.142.255.254
+management_network_baseaddress: 10.142.0.0
+external_name_servers: [10.2.200.200]
+timezone: Europe/Amsterdam
+license:
+  country: NL
+  state: Amsterdam
+  locality: Amsterdam
+  organization: Bright Computing
+  organizational_unit: Engineering 
+  cluster_name: BrightCluster
+  mac: "{{ ansible_default_ipv4.macaddress }}"
+
+# Cluster credentials
+product_key: ! vault <encrypted string>
+mysql_login_user: root
+mysql_login_password: ! vault <encrypted string>
+db_cmd_password: ! vault <encrypted string>
+slurm_user_pass: ! vault <encrypted string>
+ipmi_pass: ! vault <encrypted string>
+ldap_root_pass: ! vault <encrypted string>
+ldap_readonly_pass: ! vault <encrypted string>
+
+# Azure settings
+cloud: azure
+# The followinscalculated in resolve_azure_params.yml
+azure_cloud_provider_resource_group:
+azure_cloud_provider_storage_account_name:
+azure_network_cloud_subnet_id:
+azure_network_name:
+azure_cloud_provider_default_node_installer_image:
+
+# Azure credentials
+azure_cloud_provider_subscription_id: ! vault <encrypted string>
+azure_cloud_provider_client_id: ! vault <encrypted string>
+azure_cloud_provider_client_secret: ! vault <encrypted string>
+azure_cloud_provider_tenant_id: ! vault <encrypted string>
+location: ! vault <encrypted string>
+vm_admin_password: ! vault <encrypted string>
