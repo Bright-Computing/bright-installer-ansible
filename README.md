@@ -107,13 +107,19 @@ And then there are install medium parameters. Depending on the choice of install
 
 ## Examples
 
-- Playbooks
-- Var files
+The example playbooks in this repository specify simple installations for the three cloud types: AWS, Azure, and non-cloud. Their configuration is similar, but every type also requires unique parameters. The cloud type is determined by the `cloud` parameter.
 
-## Stages of the head node installer
+The examples assume that the necessary machines are present and prepared according to the requirements as specified in the [Ansible Galaxy README](https://galaxy.ansible.com/brightcomputing/installer). This means that in the case of a non-cloud installation, there are live machines reachable from the control node, and in case of a cloud deployment, the respective resources are provisioned beforehand. For the latter, the cloud resources can of course be provisioned using the AWS and Azure Ansible playbooks.
+
+This repository contains three example playbooks.
+
+- [AWS](playbooks/aws/)
+- [Azure](playbooks/azure/)
+- [Non-cloud](/playbooks/non-cloud)
+
 
 ## Licensing
 
-Licensed under the Apache License, Version 2.0 (the "License")
+Licensed under the Apache License, Version 2.0.
 
 See [LICENSE](http://www.apache.org/licenses/LICENSE-2.0) for the full text.
