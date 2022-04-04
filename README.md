@@ -6,7 +6,7 @@ To immediately jump to one of the example Playbooks, see
 
 - [AWS](playbooks/aws/)
 - [Azure](playbooks/azure/)
-- [Bare metal](/playbooks/bare-metal)
+- [Non-cloud](/playbooks/non-cloud)
 
 The remainder of this document provides a high-level overview of the installer Ansible collection.
 
@@ -76,15 +76,20 @@ There are mandatory parameters related to the product license.
 | license.cluster_name | string | The cluster name (common name) name to use for the certificate request |
 | license.mac | mac | The mac address value to use for the certificate request |
 
-There are also mandatory security parameters. It is strongly recommended to manage these (and similar parameters) using [Ansible Vault](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html).
+There are also mandatory credential parameters. It is strongly recommended to manage these (and similar parameters) using [Ansible Vault](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html).
 
 | Parameter | Type/Format | Description |
 | ------------- | ----------- | -------------------- |
 | db_cmd_password | string | CMDaemon service database password |
-| management_interface | string | The head node management network interface  |
 | ldap_root_pass | string | LDAP root password to configure ldap service with|
 | ldap_readonly_pass | string | LDAP read only password to configure ldap service with|
 | slurm_user_pass | string | SLURM user password for database access |
+
+Furthermore, there are connectivity-related parameters. `management_interface` needs to be set for all types of cloud deployment. Depending on the platform (AWS, Azure, non-cloud), there are additional mandatory parameters. See the specific examples for details.
+
+| Parameter | Type/Format | Description |
+| ------------- | ----------- | -------------------- |
+| management_interface | string | The head node management network interface  |
 
 And then there are install medium parameters. Depending on the choice of install medium (dvd, network, or local), there are different mandatory parameters to be specified.
 

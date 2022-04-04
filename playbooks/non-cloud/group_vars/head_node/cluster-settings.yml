@@ -7,7 +7,10 @@ management_interface: eth1
 management_ip_address: 10.142.255.254
 management_network_baseaddress: 10.142.0.0
 external_name_servers: [10.2.200.200]
-post_install_default_image_archive: '{{ ansible_env.HOME }}/RHEL8u5.tar.gz'
+install_medium: network
+install_medium_network_packages:
+  - "http://example.com/cm-config-cm.all.rpm"
+  - "http://example.com/cm-config-yum.all.rpm"
 timezone: Europe/Amsterdam
 license:
   country: NL
@@ -17,13 +20,3 @@ license:
   organizational_unit: Engineering 
   cluster_name: BrightCluster
   mac: "{{ ansible_default_ipv4.macaddress }}"
-
-# Cluster credentials
-product_key: ! vault <encrypted string>
-mysql_login_user: root
-mysql_login_password: ! vault <encrypted string>
-db_cmd_password: ! vault <encrypted string>
-slurm_user_pass: ! vault <encrypted string>
-ipmi_pass: ! vault <encrypted string>
-ldap_root_pass: ! vault <encrypted string>
-ldap_readonly_pass: ! vault <encrypted string>
