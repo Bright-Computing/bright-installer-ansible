@@ -4,7 +4,7 @@ This playbook performs a network install of a Bright Cluster head node on a non-
 
 - `playbook.yml`
 - `inventory`
-    - `hosts.yml`
+    - `hosts`
 - `group_vars/head_node`
     - `cluster-settings.yml`
     - `cluster-credentials.yml`

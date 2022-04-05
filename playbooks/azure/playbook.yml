@@ -1,0 +1,14 @@
+---
+- name: Install Bright head node on Azure
+  hosts: head_node
+  gather_facts: true
+  become: true
+
+  pre_tasks:
+    - name: Resolve {{ cloud }} parameters
+      include_tasks: "tasks/resolve_{{ cloud }}_params.yml"
+      tags:
+        - always
+
+  roles:
+    - role: brightcomputing.installer.head_node
