@@ -11,4 +11,4 @@
         - always
 
   roles:
-    - role: brightcomputing.installer.head_node
+    - role: brightcomputing.installer92.head_node

@@ -1,6 +1,6 @@
 # Bright Cluster head node installer Ansible collection examples
 
-This repository contains usage examples for the `brightcomputing.installer` Ansible collection.
+This repository contains usage examples for the `brightcomputing.installer92` Ansible collection.
 
 To immediately jump to one of the example Playbooks, see
 
@@ -14,7 +14,7 @@ The remainder of this document provides a high-level overview of the installer A
 
 An Ansible collection is the standard way for shipping and consuming Ansible distributables (playbooks, roles, plugins) since version 2.10. This document assumes that the user has practical knowledge of Ansible and Bright Cluster Manager.
 
-This document briefly describes the procedure for deploying a Bright Cluster head node through an Ansible playbook using the head node installer Ansible collection. The collection defines the `brightcomputing.installer.head_node` role that deploys the Bright Cluster Manager head node when defined with the correct parameters in the user’s playbooks and roles. The head node installation also includes deployment of the default software image and node-installer image components, which is required for provisioning compute nodes.
+This document briefly describes the procedure for deploying a Bright Cluster head node through an Ansible playbook using the head node installer Ansible collection. The collection defines the `brightcomputing.installer92.head_node` role that deploys the Bright Cluster Manager head node when defined with the correct parameters in the user’s playbooks and roles. The head node installation also includes deployment of the default software image and node-installer image components, which is required for provisioning compute nodes.
 
 ## Terminology
 
@@ -34,14 +34,14 @@ Bright versions:
 
 ### Requirements
 
-*See the [Ansible Galaxy README](https://galaxy.ansible.com/brightcomputing/installer) for a comprehensive overview of requirements.*
+*See the [Ansible Galaxy README](https://galaxy.ansible.com/brightcomputing/installer92) for a comprehensive overview of requirements.*
 
 ### Installation
 
 Install the collection using the `ansible-galaxy` command-line tool:
 
 ```sh
-ansible-galaxy collection install brightcomputing.installer
+ansible-galaxy collection install brightcomputing.installer92
 ```
 
 See [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.
@@ -54,14 +54,14 @@ The head node installer collection can be referenced by its name in a Playbook. 
 - name: <play name>
   hosts: <pattern>
   roles:
-    - role: brightcomputing.installer.head_node
+    - role: brightcomputing.installer92.head_node
       vars:
         <parameters>
 ```
 
 ### Parameters
 
-*See the [Ansible Galaxy README](https://galaxy.ansible.com/brightcomputing/installer) for a comprehensive overview of parameters.*
+*See the [Ansible Galaxy README](https://galaxy.ansible.com/brightcomputing/installer92) for a comprehensive overview of parameters.*
 
 There are mandatory parameters related to the product license.
 
@@ -109,7 +109,7 @@ And then there are install medium parameters. Depending on the choice of install
 
 The example playbooks in this repository specify simple installations for the three cloud types: AWS, Azure, and non-cloud. Their configuration is similar, but every type also requires unique parameters. The cloud type is determined by the `cloud` parameter.
 
-The examples assume that the necessary machines are present and prepared according to the requirements as specified in the [Ansible Galaxy README](https://galaxy.ansible.com/brightcomputing/installer). This means that in the case of a non-cloud installation, there are live machines reachable from the control node, and in case of a cloud deployment, the respective resources are provisioned beforehand. For the latter, the cloud resources can of course be provisioned using the AWS and Azure Ansible playbooks.
+The examples assume that the necessary machines are present and prepared according to the requirements as specified in the [Ansible Galaxy README](https://galaxy.ansible.com/brightcomputing/installer92). This means that in the case of a non-cloud installation, there are live machines reachable from the control node, and in case of a cloud deployment, the respective resources are provisioned beforehand. For the latter, the cloud resources can of course be provisioned using the AWS and Azure Ansible playbooks.
 
 This repository contains three example playbooks.
 
