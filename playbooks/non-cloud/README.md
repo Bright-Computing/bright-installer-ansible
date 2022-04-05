@@ -1,6 +1,6 @@
-# Example playbook: Bright on Rocky 8.5 for non-cloud
+# Example playbook: Bright on non-cloud
 
-This playbook performs a network install of a Bright Cluster head node on a non-cloud Rocky 8.5 machine. As a simple example, it contains the following files.
+This playbook performs a network install of a Bright Cluster head node on a non-cloud machine. As a simple example, it contains the following files.
 
 - `playbook.yml`
 - `inventory`

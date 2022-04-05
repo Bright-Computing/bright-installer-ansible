@@ -1,5 +1,5 @@
 ---
-- name: Install Bright Rocky 8.5 head node
+- name: Install Bright head node
   hosts: head_node
   gather_facts: true
   become: true
