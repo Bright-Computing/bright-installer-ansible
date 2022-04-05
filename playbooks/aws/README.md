@@ -48,14 +48,6 @@ aws_cloud_provider_ec2vpc_name: vpc-0
 aws_cloud_provider_ec2vpc_region: eu-west-1
 ```
 
-| variable name | type/format | variable description |
-| ------------- | ----------- | -------------------- |
-| aws_cloud_provider_default_region | string | AWS default region |
-| aws_cloud_provider_default_type | string | AWS default type |
-| aws_cloud_provider_image_owners | string | AWS image owners |
-| aws_cloud_provider_ec2vpc_name | string | AWS EC2 VPC name |
-| aws_cloud_provider_ec2vpc_region | string | AWS EC2 VPC region |
-
 ```yaml
 # The following AWS settings can be determined by the tasks specified in
 # resolve_aws_params.yml, but they can also be set explicitly.
@@ -66,14 +58,6 @@ aws_cloud_provider_ec2vpc_security_group_node: sg-nrjizsei1dfejcqla
 aws_cloud_provider_ec2vpc_security_group_director: sg-7argmoa9c5pfmq76u
 ```
 
-| variable name | type/format | variable description |
-| ------------- | ----------- | -------------------- |
-| aws_cloud_provider_ec2vpc_vpc_id | string | AWS EC2 VPC vpc id |
-| aws_public_network_cloud_subnet_id | string | AWS subnet id |
-| aws_private_network_cloud_subnet_id | string | AWS subnet id |
-| aws_cloud_provider_ec2vpc_security_group_node | string | AWS EC2 VPC security group node |
-| aws_cloud_provider_ec2vpc_security_group_director | string | AWS EC2 VPC security group director |
-
 ```yaml
 # AWS credentials
 aws_cloud_provider_username: ! vault <encrypted string>
@@ -81,13 +65,6 @@ aws_cloud_provider_account_id: ! vault <encrypted string>
 aws_cloud_provider_access_key_id: ! vault <encrypted string>
 aws_cloud_provider_access_key_secret: ! vault <encrypted string>
 ```
-
-| variable name | type/format | variable description |
-| ------------- | ----------- | -------------------- |
-| aws_cloud_provider_username | string | AWS username |
-| aws_cloud_provider_account_id | string | AWS account id |
-| aws_cloud_provider_access_key_id | string | AWS access key id |
-| aws_cloud_provider_access_key_secret | string | AWS access key secret |
 
 ### 3. Run the playbook
 

@@ -48,14 +48,6 @@ azure_network_name: vpc-cluster-subnet
 azure_network_cloud_subnet_id: /subscriptions/e3c03c7a-acc7-480f-b88f-e63505793fc7/resourceGroups/cluster-rg/providers/Microsoft.Network/virtualNetworks/vpc-cluster/subnets/vpc-cluster-subnet
 ```
 
-| variable name | type/format | variable description |
-| ------------- | ----------- | -------------------- |
-| azure_cloud_provider_resource_group | string | Azure resource group |
-| azure_cloud_provider_storage_account_name | string | Azure storage account name |
-| azure_network_name | string | Azure network name |
-| azure_network_cloud_subnet_id | string | Azure network subnet id |
-| azure_cloud_provider_default_node_installer_image | string | Azure default node installer image |
-
 ```yaml
 # Azure credentials
 azure_cloud_provider_subscription_id: ! vault <encrypted string>
@@ -63,13 +55,6 @@ azure_cloud_provider_client_id: ! vault <encrypted string>
 azure_cloud_provider_client_secret: ! vault <encrypted string>
 azure_cloud_provider_tenant_id: ! vault <encrypted string>
 ```
-
-| variable name | type/format | variable description |
-| ------------- | ----------- | -------------------- |
-| azure_cloud_provider_subscription_id | string | Azure subscription id |
-| azure_cloud_provider_client_id | string | Azure client id |
-| azure_cloud_provider_client_secret | string | Azure client secret |
-| azure_cloud_provider_tenant_id | string | Azure tenant ID |
 
 ### 3. Run the playbook
 

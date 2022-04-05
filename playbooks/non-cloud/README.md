@@ -44,24 +44,11 @@ install_medium_network_packages:
   - "http://example.com/cm-config-yum.all.rpm"
 ```
 
-| Parameter | Type/Format | Description |
-| ------------- | ----------- | -------------------- |
-| external_interface | string | The head node interface name as part on the external host  |
-| external_ip_address | string | The head node interface address as part on the external host |
-| external_network_gateway | string | The head node gateway address |
-| management_ip_address | string | The head node network address on the management network |
-| management_network_baseaddress | string | The network address for the head node's management network |
-
 ```yaml
 # Cluster credentials
 mysql_login_user: ! vault <encrypted string>
 mysql_login_password: ! vault <encrypted string>
 ```
-
-| Parameter | Type/Format | Description |
-| ------------- | ----------- | -------------------- |
-| mysql_login_user | string | The name of the MySQL database use that should be created |
-| mysql_login_password | string | The desired password for the MySQL user |
 
 ### 3. Run the playbook
 
