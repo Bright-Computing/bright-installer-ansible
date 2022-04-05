@@ -27,6 +27,12 @@ Downloading https://galaxy.ansible.com/download/brightcomputing-installer-9.1.11
 brightcomputing.installer (9.1.11+91.git735ce0e) was installed successfully
 ```
 
+For management of AWS resources, also install the `amazon.aws` collection.
+
+```sh
+$ ansible-galaxy collection install amazon.aws
+```
+
 ### 2. Configure parameters
 
 In addition to the mandatory top-level parameters and the network install parameters as specified in [the non-cloud example playbook](../non-cloud/), the AWS deployment type has multiple unique parameters. See [Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer) for a comprehensive overview. The AWS playbook example sets the following subset of parameters in addition to the mandatory parameters. (also see the YAML configuration files in [`group_vars/head_node`](group_vars/head_node/))
