@@ -36,6 +36,19 @@ Bright versions:
 
 *See the [Ansible Galaxy README](https://galaxy.ansible.com/brightcomputing/installer92) for a comprehensive overview of requirements.*
 
+In short, there are several configuration requirements for target host machines.
+
+- [Minimal hardware requirements](https://support.brightcomputing.com/manuals/9.2/installation-manual.pdf#section.3.1)
+- Fresh installation  of a [supported Linux distribution ](#supported-versions)
+- Software
+  - Python 3 and required modules
+  - MySQL or MariaDB service
+  - SELinux disabled
+- Access to Bright software
+  - **local**: using a manually defined repository
+  - **network**: using a repository defined by Bright packages
+  - **dvd**: using an ISO file or DVD
+
 ### Installation
 
 Install the collection using the `ansible-galaxy` command-line tool:
