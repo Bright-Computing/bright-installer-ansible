@@ -3,6 +3,7 @@
 This playbook performs a network install of a Bright Cluster head node on Azure. As a simple example, it contains the following files.
 
 - `playbook.yml`
+- `requirements-control-node.txt`
 - `tasks`
   - `resolve_azure_params.yml`
 - `inventory`
@@ -25,6 +26,12 @@ Starting collection install process
 Installing 'brightcomputing.installer92:1.0.149+gitd15f4f6' to '/home/example/.ansible/collections/ansible_collections/brightcomputing/installer'
 Downloading https://galaxy.ansible.com/download/brightcomputing-installer92-1.0.149+gitd15f4f6.tar.gz to /home/example/.ansible/tmp/ansible-local-220503_dk8flv/tmpsip0qgrl
 brightcomputing.installer92 (1.0.149+gitd15f4f6) was installed successfully
+```
+
+Install the Python dependencies.
+
+```sh
+$ pip install -r requirements-control-node.txt
 ```
 
 For management of Azure resources, also install the `azure.azcollection` collection.

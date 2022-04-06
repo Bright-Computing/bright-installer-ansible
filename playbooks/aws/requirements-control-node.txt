@@ -1,0 +1,6 @@
+jmespath==0.10.0
+xmltodict==0.12.0
+netaddr
+paramiko
+ansible==2.10.*
+boto3
