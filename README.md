@@ -117,6 +117,7 @@ And then there are install medium parameters. Depending on the choice of install
 | **local** | | |
 | install_medium_local_repo_path | path | Path to local file that defines the list of package repositories to fetch Bright package from |
 
+All example playbooks in this repository use the network install medium. When basing a playbook on the examples, be sure to set correct paths for the `cm-config` packages, matching the operating system and architecture. Verify that these network locations are reachable from the target host.
 
 ## Examples
 
