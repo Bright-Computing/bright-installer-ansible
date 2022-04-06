@@ -47,12 +47,6 @@ In addition to the mandatory top-level parameters and the network install parame
 ```yaml
 # Azure settings
 cloud: azure
-# The following Azure settings can be determined by the tasks specified in
-# resolve_azure_params.yml, but they can also be set explicitly.
-azure_cloud_provider_resource_group: cluster-rg
-azure_cloud_provider_storage_account_name: cluster-sa
-azure_network_name: vpc-cluster-subnet
-azure_network_cloud_subnet_id: /subscriptions/e3c03c7a-acc7-480f-b88f-e63505793fc7/resourceGroups/cluster-rg/providers/Microsoft.Network/virtualNetworks/vpc-cluster/subnets/vpc-cluster-subnet
 ```
 
 ```yaml
@@ -61,6 +55,15 @@ azure_cloud_provider_subscription_id: ! vault <encrypted string>
 azure_cloud_provider_client_id: ! vault <encrypted string>
 azure_cloud_provider_client_secret: ! vault <encrypted string>
 azure_cloud_provider_tenant_id: ! vault <encrypted string>
+```
+
+The following settings are automatically configured by the tasks run from `tasks/resolve_azure_params.yml`. They *can* be configured manually, but then it is important to remove those respective tasks from the playbook.
+
+```yaml
+azure_cloud_provider_resource_group: cluster-rg
+azure_cloud_provider_storage_account_name: cluster-sa
+azure_network_name: vpc-cluster-subnet
+azure_network_cloud_subnet_id: /subscriptions/e3c03c7a-acc7-480f-b88f-e63505793fc7/resourceGroups/cluster-rg/providers/Microsoft.Network/virtualNetworks/vpc-cluster/subnets/vpc-cluster-subnet
 ```
 
 ### 3. Run the playbook

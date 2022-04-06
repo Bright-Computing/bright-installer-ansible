@@ -56,21 +56,21 @@ aws_cloud_provider_ec2vpc_region: eu-west-1
 ```
 
 ```yaml
-# The following AWS settings can be determined by the tasks specified in
-# resolve_aws_params.yml, but they can also be set explicitly.
-aws_cloud_provider_ec2vpc_vpc_id: vpc-h1y7afhfpzhq9952j
-aws_public_network_cloud_subnet_id: subnet-4cdgev5ds5iekbc5s
-aws_private_network_cloud_subnet_id: subnet-fatgqn00tr82n56pd
-aws_cloud_provider_ec2vpc_security_group_node: sg-nrjizsei1dfejcqla
-aws_cloud_provider_ec2vpc_security_group_director: sg-7argmoa9c5pfmq76u
-```
-
-```yaml
 # AWS credentials
 aws_cloud_provider_username: ! vault <encrypted string>
 aws_cloud_provider_account_id: ! vault <encrypted string>
 aws_cloud_provider_access_key_id: ! vault <encrypted string>
 aws_cloud_provider_access_key_secret: ! vault <encrypted string>
+```
+
+The following settings are automatically configured by the tasks run from `tasks/resolve_aws_params.yml`. They *can* be configured manually, but then it is important to remove those respective tasks from the playbook.
+
+```yaml
+aws_cloud_provider_ec2vpc_vpc_id: vpc-h1y7afhfpzhq9952j
+aws_public_network_cloud_subnet_id: subnet-4cdgev5ds5iekbc5s
+aws_private_network_cloud_subnet_id: subnet-fatgqn00tr82n56pd
+aws_cloud_provider_ec2vpc_security_group_node: sg-nrjizsei1dfejcqla
+aws_cloud_provider_ec2vpc_security_group_director: sg-7argmoa9c5pfmq76u
 ```
 
 ### 3. Run the playbook
