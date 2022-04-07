@@ -27,4 +27,3 @@ azure_cloud_provider_resource_group:
 azure_cloud_provider_storage_account_name:
 azure_network_name:
 azure_network_cloud_subnet_id:
-azure_cloud_provider_default_node_installer_image:
