@@ -1,6 +1,6 @@
 # Intro
 This example deploys Bright Cluster Manager 9.2 on a vagrant RockyLinux 8.5 vm.
-We assume the user has access to either `cm-config-cm.noarch.rpm` and `cm-config-yum.noarch.rpm` packages for an network install or `bright9.2-rocky8u5.iso` and `bright9.2-rocky8u5.iso.md5` for iso based install.
+We assume the user has access to either `cm-config-cm.noarch.rpm` and `cm-config-yum.noarch.rpm` packages for a network install or `bright9.2-rocky8u5.iso` and `bright9.2-rocky8u5.iso.md5` for an iso based install.
 
 # Requirements:
 - qemu (with kvm):  https://www.qemu.org/
