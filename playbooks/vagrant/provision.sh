@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 ANSIBLE_ARGS="${ANSIBLE_ARGS:'--vv'}"
+export VAGRANT_DEFAULT_PROVIDER=libvirt
 
 create_vm() {
     vagrant up

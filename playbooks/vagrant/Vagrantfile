@@ -2,6 +2,9 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+
+  config.vagrant.plugins = ["vagrant-libvirt"]
+
   config.vm.define "hn-rocky8u5", primary: true do |head_node|
     head_node.vm.box = "generic/rocky8"
     head_node.vm.box_version = "3.6.4"

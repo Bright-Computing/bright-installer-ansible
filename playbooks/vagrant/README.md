@@ -12,6 +12,7 @@ This guide differs from the example playbooks for AWS, Azure, and non-cloud. Nam
 - [qemu (with kvm)](https://www.qemu.org)
 - [libvirtd](https://libvirt.org)
 - [Vagrant](https://www.vagrantup.com)
+- [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
 
 ### 2. Provision Vagrant machines
 
