@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
       node.vm.hostname = nil
       node.vm.provider :libvirt do |libvirt|
         libvirt.cpu_mode = 'host-passthrough'
-        libvirt.memory = 512 * 4
+        libvirt.memory = 1024 * 2
         libvirt.cpus = 2
         libvirt.storage :file, size: '50G', type: 'qcow2', bus: 'sata', device: 'sda'
         libvirt.boot 'network'
@@ -47,11 +47,11 @@ Vagrant.configure("2") do |config|
                       ip: "10.142.0.#{index+10}",
                       autostart: false,
                       auto_config: false,
-                      libvirt__netmask: "255.255.0.0",
-                      libvirt__network_name: "cluster_internalnet",
                       libvirt__adapter: 1,
                       libvirt__domain_name: "eth.cluster",
-                      libvirt__forward_mode: 'none'
+                      libvirt__forward_mode: 'none',
+                      libvirt__netmask: "255.255.0.0",
+                      libvirt__network_name: "cluster_internalnet"
     end
   end
 
