@@ -22,4 +22,3 @@
           - "{{ ansible_env.HOME }}/cm-config-cm.noarch.rpm"
           - "{{ ansible_env.HOME }}/cm-config-yum.noarch.rpm"
         post_install_default_image_archive: "{{ ansible_env.HOME }}/ROCKY8u5.tar.gz"
-        cm_create_image_extra_args: "--resolvconf /etc/resolv.conf "
