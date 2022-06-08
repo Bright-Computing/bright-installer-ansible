@@ -7,13 +7,13 @@ This guide differs from the example playbooks for AWS, Azure, and non-cloud. Nam
 
 ## Quickstart guide
 
-### Requirements
+### 1. Install requirements
 
 - [qemu (with kvm)](https://www.qemu.org)
 - [libvirtd](https://libvirt.org)
 - [Vagrant](https://www.vagrantup.com)
 
-### Provision Vagrant machines
+### 2. Provision Vagrant machines
 
 Create a vagrant machine with RockyLinux 8.5 and install and enable `mariadb` (using prepare.yml playbook)
 ```
@@ -25,19 +25,23 @@ Export `PRODUCT_KEY` variable for a license request.
 $ export PRODUCT_KEY=XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX
 ```
 
-### Install Bright Cluster Manager
+### 3. Install Bright Cluster Manager
 
-For a network install, rerun `./provision.sh` with `--install-network` flag and `BRIGHT_PKG_MIRROR` variable set to the url to dowload `cm-config-cm.noarch.rpm` and `cm-config-yum.noarch.rpm` packages from.
+Either perform a network install or an iso install.
+
+#### Network install
 ```
 $ BRIGHT_PKG_MIRROR=<URL-TO-DOWLOAD-PKGS-FROM> ./provision --install-network
 ```
+The `BRIGHT_PKG_MIRROR` variable must be set to the url from where to dowload `cm-config-cm.noarch.rpm` and `cm-config-yum.noarch.rpm`.
 
-For an iso install, rerun `./provision.sh` with `--install-iso` and `BRIGHT_ISO_MIRROR` variable set to the url to dowload `bright9.2-rocky8u5.iso` and `bright9.2-rocky8u5.iso.md5` from.
+#### ISO install
 ```
 $ BRIGHT_ISO_MIRROR=<URL-TO-DOWLOAD-ISO-FROM> ./provision --install-iso
 ```
+The `BRIGHT_ISO_MIRROR` variable must be set to the url from where to download `bright9.2-rocky8u5.iso` and `bright9.2-rocky8u5.iso.md5`.
 
-Destroy all created vms once done with them.
+#### Clean up
 ```
 ./provision --destroy
 ```
