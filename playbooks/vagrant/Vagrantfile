@@ -1,0 +1,71 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vagrant.plugins = ["vagrant-libvirt"]
+
+  config.vm.define "hn-rocky8u5", primary: true do |head_node|
+    head_node.vm.box = "generic/rocky8"
+    head_node.vm.box_version = "3.6.4"
+    head_node.vm.hostname = "hn-rocky8u5"
+
+    head_node.vm.network :private_network,
+                         ip: "10.142.255.254",
+                         autostart: false,
+                         auto_config: false,
+                         hostname: true,
+                         libvirt__adapter: 1,
+                         libvirt__dhcp_enabled: false,
+                         libvirt__domain_name: "eth.cluster",
+                         libvirt__forward_mode: 'none',
+                         libvirt__netmask: "255.255.0.0",
+                         libvirt__network_name: "cluster_internalnet"
+
+    head_node.vm.provider :libvirt do |libvirt|
+      libvirt.cpu_mode = 'host-passthrough'
+      libvirt.cpus = 4
+      libvirt.memory = 1024 * 4
+      libvirt.management_network_address = "10.75.250.0/25"
+    end
+
+    head_node.vm.provision :ansible do |ansible|
+      ansible.playbook = "prepare.yml"
+      ansible.verbose = "vvv"
+      ansible.groups = {
+        "head_node" => ["hn-rocky8u5"],
+        "compute_node" => ["node001", "node002"],
+      }
+    end
+  end
+
+  1.upto(2) do |index|
+    config.vm.define "node00#{index}", autostart: false do |node|
+      node.vm.hostname = nil
+      node.vm.provider :libvirt do |libvirt|
+        libvirt.cpu_mode = 'host-passthrough'
+        libvirt.memory = 1024 * 2
+        libvirt.cpus = 2
+        libvirt.storage :file, size: '50G', type: 'qcow2', bus: 'sata', device: 'sda'
+        libvirt.boot 'network'
+        boot_network = {'network' => 'cluster_internalnet'}
+        libvirt.boot boot_network
+        libvirt.boot 'hd'
+      end
+
+      node.vm.network :private_network,
+                      libvirt__dhcp_enabled: false,
+                      mac: "08:00:27:00:00:#{index+10}",
+                      ip: "10.142.0.#{index+10}",
+                      autostart: false,
+                      auto_config: false,
+                      libvirt__adapter: 1,
+                      libvirt__domain_name: "eth.cluster",
+                      libvirt__forward_mode: 'none',
+                      libvirt__netmask: "255.255.0.0",
+                      libvirt__network_name: "cluster_internalnet"
+    end
+  end
+
+  config.vm.synced_folder './', '/vagrant', disabled: true
+end

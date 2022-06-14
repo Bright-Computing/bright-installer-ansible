@@ -1,0 +1,18 @@
+- name: Define compute nodes
+  hosts: head_node
+  gather_facts: false
+  become: true # needed to be able to access admin certificate on /root/.cm/admin.{key,pem}
+  tasks:
+    - name: Create compute nodes
+      brightcomputing.bcm92.physical_node:
+        hostname: "node00{{ item }}"
+        interfaces_NetworkPhysicalInterface:
+        - name: BOOTIF
+          ip: "10.142.0.1{{ item }}"
+          network: internalnet
+          mac: "08:00:27:00:00:1{{ item }}"
+        category: default
+        partition: base
+        mac: "08:00:27:00:00:1{{ item }}"
+        provisioningInterface: BOOTIF
+      with_sequence: start=1 end=2

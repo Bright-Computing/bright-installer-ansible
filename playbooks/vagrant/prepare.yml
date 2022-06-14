@@ -1,0 +1,40 @@
+---
+- name: Prepare play for brightcomputing.installer.head_node
+  hosts: head_node
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: Create software image tarball
+      brightcomputing.installer92.vm_archive:
+        os_family: RedHat
+        dest: "{{ ansible_env.HOME }}/ROCKY8u5.tar.gz"
+        extra_excludes:
+          - /vagrant
+          - /home/vagrant
+
+    - name: Disable selinux
+      ansible.posix.selinux: state=disabled
+      notify:
+        - Reboot machine
+
+    - name: Install needed packages
+      ansible.builtin.package:
+        name:
+          - rng-tools
+          - mariadb-server
+          - htop
+        state: present
+
+    - name: Setup needed services
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      with_items:
+        - mariadb
+        - rngd
+
+  handlers:
+    - name: Reboot machine
+      ansible.builtin.reboot:

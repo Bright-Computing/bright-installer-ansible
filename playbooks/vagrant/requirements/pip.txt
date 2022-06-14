@@ -1,0 +1,6 @@
+# head_node role requirements
+jmespath==0.10.0
+xmltodict==0.12.0
+netaddr
+## end head_node role requirements
+ansible~=2.10   # ansible, 2.10 is needed because of the brightcomputing.bcm collection version constrain.

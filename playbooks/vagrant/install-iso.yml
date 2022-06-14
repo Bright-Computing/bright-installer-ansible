@@ -1,0 +1,22 @@
+---
+- name: Trigger Bright Cluster installation (iso)
+  hosts: head_node
+  gather_facts: true
+  become: true
+
+  pre_tasks:
+
+    - name: Upload base distributions archive and repo packages
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ ansible_env.HOME }}"
+      loop:
+        - bright9.2-rocky8u5.iso
+        - bright9.2-rocky8u5.iso.md5
+
+  roles:
+    - role: brightcomputing.installer92.head_node
+      vars:
+        install_medium: dvd
+        install_medium_dvd_path: "{{ ansible_env.HOME }}/bright9.2-rocky8u5.iso"
+        install_medium_dvd_checksum_path: "{{ ansible_env.HOME }}/bright9.2-rocky8u5.iso.md5"
