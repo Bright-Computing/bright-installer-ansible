@@ -1,4 +1,4 @@
-# Example playbook: Bright on AWS 
+# Example playbook: Bright on AWS
 
 This playbook performs a network install of a Bright Cluster head node on AWS. As a simple example, it contains the following files.
 
@@ -18,6 +18,21 @@ This guide assumes that machines are prepared according to the requirements as s
 
 ### 1. Install Ansible collection
 
+Create and activate a virtual environment.
+
+```sh
+$ python -m venv venv
+$ source venv/bin/activate
+```
+
+Install the Python dependencies.
+
+```sh
+$ pip install -r requirements-control-node.txt
+```
+
+Install Ansible collection.
+
 ```sh
 $ ansible-galaxy collection install brightcomputing.installer92
 Starting galaxy collection install process
@@ -26,12 +41,6 @@ Starting collection install process
 Installing 'brightcomputing.installer92:1.0.149+gitd15f4f6' to '/home/example/.ansible/collections/ansible_collections/brightcomputing/installer'
 Downloading https://galaxy.ansible.com/download/brightcomputing-installer92-1.0.149+gitd15f4f6.tar.gz to /home/example/.ansible/tmp/ansible-local-220503_dk8flv/tmpsip0qgrl
 brightcomputing.installer92 (1.0.149+gitd15f4f6) was installed successfully
-```
-
-Install the Python dependencies.
-
-```sh
-$ pip install -r requirements-control-node.txt
 ```
 
 For management of AWS resources, also install the `amazon.aws` collection.
