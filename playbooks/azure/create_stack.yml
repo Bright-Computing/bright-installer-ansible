@@ -1,0 +1,104 @@
+---
+- name: create Azure stack
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  vars_files:
+    - vars/stack.yml
+    - vars/credentials.yml
+  vars:
+    common_tags: &common_tags
+      'BCM Resource': 'True'
+      'BCM Bursting': extension
+
+  tasks:
+    - name: Create a resource group
+      azure.azcollection.azure_rm_resourcegroup:
+        name: "{{ resource_group_name }}"
+        location: "{{ location }}"
+        tags:
+          <<: *common_tags
+
+    - name: Create storage account
+      azure.azcollection.azure_rm_storageaccount:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ storage_account_name }}"
+        account_type: Standard_LRS
+        location: "{{ location }}"
+        tags:
+          <<: *common_tags
+
+    - name: Create virtual network
+      azure.azcollection.azure_rm_virtualnetwork:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ virtual_network_name }}"
+        location: "{{ location }}"
+        address_prefixes: "{{ virtual_network_address_prefix }}"
+        tags:
+          <<: *common_tags
+
+    - name: Add subnet
+      azure.azcollection.azure_rm_subnet:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ subnet_name }}"
+        address_prefix: "{{ subnet_address_prefix }}"
+        virtual_network: "{{ virtual_network_name }}"
+
+    - name: Create public ip
+      azure.azcollection.azure_rm_publicipaddress:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ public_ip_address_name }}"
+        allocation_method: Static
+        location: "{{ location }}"
+        tags:
+          <<: *common_tags
+
+    - name: Create security group that allows SSH
+      azure.azcollection.azure_rm_securitygroup:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ security_group_name }}"
+        location: "{{ location }}"
+        rules:
+          - name: SSH
+            protocol: Tcp
+            destination_port_range: 22
+            access: Allow
+            priority: 101
+            direction: Inbound
+        tags:
+          <<: *common_tags
+
+    - name: Create NIC
+      azure.azcollection.azure_rm_networkinterface:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ network_interface_name }}"
+        virtual_network: "{{ virtual_network_name }}"
+        subnet: "{{ subnet_name }}"
+        public_ip_name: "{{ public_ip_address_name }}"
+        security_group: "{{ security_group_name }}"
+        location: "{{ location }}"
+        tags:
+          <<: *common_tags
+
+    - name: Create virtual machine
+      azure.azcollection.azure_rm_virtualmachine:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{vm_name}}"
+        vm_size: Standard_D1
+        storage_account: "{{ storage_account_name }}"
+        storage_container: "{{ vm_name }}"
+        storage_blob: "{{vm_name}}.vhd"
+        admin_username: "{{ vm_admin_username }}"
+        admin_password: "{{ vm_admin_password }}"
+        ssh_password_enabled: false
+        network_interfaces: "{{ network_interface_name }}"
+        location: "{{ location }}"
+        ssh_public_keys:
+          - path: "/home/{{ vm_admin_username }}/.ssh/authorized_keys"
+            key_data: "{{ lookup('file', vm_ssh_public_keys) }}"
+        image: "{{ images[distro] }}"
+        os_disk_size_gb: 80
+        tags:
+          <<: *common_tags
+          Distro: "{{ distro | mandatory }}"

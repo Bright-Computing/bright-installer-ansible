@@ -3,6 +3,9 @@
   hosts: head_node
   gather_facts: true
   become: true
+  vars_files:
+    - vars/stack.yml
+    - vars/credentials.yml
 
   pre_tasks:
     - name: Resolve {{ cloud }} parameters

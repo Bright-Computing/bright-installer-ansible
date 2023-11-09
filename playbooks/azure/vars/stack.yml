@@ -1,0 +1,56 @@
+---
+# Stack location
+location: westeurope
+
+# Resource name used for all the stack resources
+resource_group_name: ansibledemo
+
+# Storage account name used for the stack.
+storage_account_name: demostorage31102023
+
+# Internal network name
+virtual_network_name: vnet001
+
+# Internal network subnet name
+subnet_name: subnet001
+
+# public ip resource name
+public_ip_address_name: publicip001
+
+# Security group name.
+security_group_name: secgroup001
+
+# Virtual machine Network interface name.
+network_interface_name: nic001
+
+# Virtual machine name
+vm_name: headnode
+
+# VM network prefix
+virtual_network_address_prefix: 10.142.0.0/16
+
+# VM subnet prefix
+subnet_address_prefix: 10.142.128.0/17
+
+# VM distribution
+distro: ubuntu2204
+
+# Path to ssh key to use to access the VM.
+vm_ssh_public_keys: ~/.ssh/id_rsa.pub
+
+# Admin user to use for accessing the VM
+vm_admin_username: adminUser
+
+# Map for distro -> Azure image
+images:
+  ubuntu2004:
+    publisher: canonical
+    offer: 0001-com-ubuntu-server-focal
+    sku: 20_04-lts
+    version: latest
+
+  ubuntu2204:
+    offer: 0001-com-ubuntu-server-jammy
+    publisher: canonical
+    sku: 22_04-lts
+    version: latest

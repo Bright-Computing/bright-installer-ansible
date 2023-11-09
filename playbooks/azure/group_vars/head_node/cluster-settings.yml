@@ -1,27 +1,34 @@
 ---
+# prepare variables
+_grub_default_path: /etc/default/grub.d/50-cloudimg-settings.cfg
+_cloud_type:   '"azure"'
+_virt_type:    '"hyperv"'
+
 # General cluster settings
-external_interface: eth0
+external_interface: eth1
 external_ip_address: DHCP
 external_network_gateway: "{{ ansible_facts[external_interface].ipv4.address }}"
-management_interface: eth1
+management_interface: eth0
 management_ip_address: 10.142.255.254
 management_network_baseaddress: 10.142.0.0
 external_name_servers: [10.2.200.200]
 install_medium: network
 install_medium_network_packages:
-  - "http://example.com/cm-config-cm.all.rpm"
-  - "http://example.com/cm-config-yum.all.rpm"
+  - "{{ ansible_env.HOME }}/cm-config-cm.all.deb"
+  - "{{ ansible_env.HOME }}/cm-config-apt.all.deb"
+post_install_default_image_archive: "{{ ansible_env.HOME }}/UBUNTU2204.tar.gz"
 timezone: Europe/Amsterdam
 license:
   country: NL
   state: Amsterdam
   locality: Amsterdam
   organization: Bright Computing
-  organizational_unit: Engineering 
+  organizational_unit: Engineering
   cluster_name: BrightCluster
   mac: "{{ ansible_default_ipv4.macaddress }}"
 # Azure settings
 cloud: azure
+
 ## The following are calculated in resolve_azure_params.yml
 azure_cloud_provider_resource_group:
 azure_cloud_provider_storage_account_name:

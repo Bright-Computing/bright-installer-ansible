@@ -1,7 +1,7 @@
 ---
 - name: Get facts for one resource group
   azure.azcollection.azure_rm_resourcegroup_info:
-    name: "{{ resource_group }}"
+    name: "{{ resource_group_name }}"
     list_resources: true
     subscription_id: "{{ azure_cloud_provider_subscription_id }}"
     client_id: "{{ azure_cloud_provider_client_id }}"
@@ -18,7 +18,7 @@
 
 - name: Get facts for one resource group
   azure.azcollection.azure_rm_virtualnetwork_info:
-    resource_group: "{{ resource_group }}"
+    resource_group: "{{ resource_group_name }}"
     name: "{{ azure_network.name }}"
     subscription_id: "{{ azure_cloud_provider_subscription_id }}"
     client_id: "{{ azure_cloud_provider_client_id }}"
@@ -35,7 +35,7 @@
 
 - name:
   set_fact:
-    azure_cloud_provider_resource_group: "{{ resource_group }}" # source: azure.azcollection.azure_rm inventory plugin
+    azure_cloud_provider_resource_group: "{{ resource_group_name }}" # source: azure.azcollection.azure_rm inventory plugin
     location: "{{ resource_group_info.resourcegroups[0].location }}"
     azure_network_name: "{{ azure_network_subnet.name }}"
     azure_network_cloud_subnet_id: "{{ azure_network_subnet.id }}"
