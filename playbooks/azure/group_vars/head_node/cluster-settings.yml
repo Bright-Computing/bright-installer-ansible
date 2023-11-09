@@ -1,10 +1,10 @@
 ---
-# prepare variables
+# prepare variables, those are only used during the prepare.yml playbook
 _grub_default_path: /etc/default/grub.d/50-cloudimg-settings.cfg
 _cloud_type:   '"azure"'
 _virt_type:    '"hyperv"'
 
-# General cluster settings
+# General cluster settings, (brightcomputing.installer variables)
 external_interface: eth1
 external_ip_address: DHCP
 external_network_gateway: "{{ ansible_facts[external_interface].ipv4.address }}"
