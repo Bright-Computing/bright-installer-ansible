@@ -1,0 +1,3 @@
+lxml==4.6.*
+PyMySQL==0.10.*
+python-ldap==3.3.*

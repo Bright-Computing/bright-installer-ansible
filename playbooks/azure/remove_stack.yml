@@ -1,0 +1,69 @@
+---
+- name: remove Azure stack
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  vars_files:
+    - vars/stack.yml
+    - vars/credentials.yml
+  vars:
+    state: absent
+
+  tasks:
+    - name: remove virtual machine
+      azure.azcollection.azure_rm_virtualmachine:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ vm_name }}"
+        location: "{{ location }}"
+        state: "{{ state }}"
+
+    - name: remove NIC
+      azure.azcollection.azure_rm_networkinterface:
+        resource_group: "{{ resource_group_name}}"
+        name: "{{ network_interface_name }}"
+        location: "{{ location }}"
+        state: "{{ state }}"
+
+    - name: remove security group that allows SSH
+      azure.azcollection.azure_rm_securitygroup:
+        resource_group: "{{ resource_group_name}}"
+        name: "{{ security_group_name }}"
+        location: "{{ location }}"
+        state: "{{ state }}"
+
+    - name: remove public ip
+      azure.azcollection.azure_rm_publicipaddress:
+        resource_group: "{{ resource_group_name}}"
+        name: "{{ public_ip_address_name }}"
+        location: "{{ location }}"
+        state: "{{ state }}"
+
+    - name: remove subnet
+      azure.azcollection.azure_rm_subnet:
+        resource_group: "{{ resource_group_name}}"
+        name: "{{ subnet_name }}"
+        virtual_network: "{{ virtual_network_name }}"
+        state: "{{ state }}"
+
+    - name: remove virtual network
+      azure.azcollection.azure_rm_virtualnetwork:
+        resource_group: "{{ resource_group_name}}"
+        name: "{{ virtual_network_name }}"
+        location: "{{ location }}"
+        state: "{{ state }}"
+
+    - name: remove storage account
+      azure.azcollection.azure_rm_storageaccount:
+        resource_group: "{{ resource_group_name}}"
+        name: "{{ storage_account_name }}"
+        location: "{{ location }}"
+        force_delete_nonempty: true
+        state: "{{ state }}"
+
+    - name: remove a resource group
+      azure.azcollection.azure_rm_resourcegroup:
+        name: "{{ resource_group_name }}"
+        location: "{{ location }}"
+        force_delete_nonempty: true
+        state: "{{ state }}"

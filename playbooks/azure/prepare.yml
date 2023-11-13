@@ -1,0 +1,87 @@
+---
+- hosts: head_node
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Check if bcmcloud and bcmvirt cmdline are set
+      shell:
+        cmd: "grep GRUB_CMDLINE_LINUX '{{ _grub_default_path }}' | grep -c 'bcmcloud={{ _cloud_type }} bcmvirt={{ _virt_type }}'"
+      register: bcmcloud_and_bcmvirt_grep_result
+      ignore_errors: true
+      changed_when: false
+
+    - name: Pass bcmcloud and bcmvirt cmdline values
+      lineinfile:
+        dest: "{{ _grub_default_path }}"
+        regexp: 'GRUB_CMDLINE_LINUX="(.*)"'
+        line: 'GRUB_CMDLINE_LINUX="\1 bcmcloud={{ _cloud_type }} bcmvirt={{ _virt_type }}"'
+        backrefs: true
+      when: bcmcloud_and_bcmvirt_grep_result.stdout == "0"
+      notify:
+        - Update grub config
+        - Reboot machine
+
+    - name: Install needed packages
+      apt:
+        name:
+          - mariadb-server
+          - libldap2-dev
+          - libsasl2-dev
+          - libssl-dev
+          - libuser
+          - libxml2-utils
+          - python3-dev
+          - python3-pip
+          - python3-pymysql
+          - python3-setuptools
+        state: present
+        update_cache: yes
+
+    - name: Install services
+      service:
+        name: mariadb.service
+        state: started
+        enabled: true
+
+    - name: Upgrade pip and setuptools
+      pip:
+        name:
+          - "pip==20.3.*"
+          - "setuptools==44.1.*"
+          - boto3
+        state: latest
+        executable: pip3
+
+    - name: Install Python deps
+      pip:
+        name: "{{ lookup('file', playbook_dir + '/requirements/target-machine.txt').split('\n') }}"
+        executable: pip3
+
+    - name: create admin user
+      community.mysql.mysql_user:
+        name: "{{ mysql_login_user }}"
+        password: "{{ mysql_login_password }}"
+        login_host: localhost
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        priv:
+          "*.*": "ALL,GRANT"
+        state: present
+
+    - name: Upload needed files.
+      copy:
+        src: "{{ item }}"
+        dest: "{{ ansible_env.HOME }}"
+      loop:
+        - files/cm-config-cm.all.deb
+        - files/cm-config-apt.all.deb
+        - files/UBUNTU2204.tar.gz
+      tags:
+        - always
+
+  handlers:
+    - name: Update grub config
+      shell:
+        cmd: update-grub
+
+    - name: Reboot machine
+      ansible.builtin.reboot:
