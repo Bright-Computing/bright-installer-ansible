@@ -55,10 +55,22 @@ brightcomputing.installer92:14.0.276+gitf0d2650 was installed successfully
 
 ### 2. Configure parameters
 
-#### 2.1 Configure resource creation parameters
+#### 2.1 Configure credentials
+Before proceeding with the playbooks to create Azure resources and later run the deployment playbooks, it's crucial to set up the appropriate credentials for Ansible. These credentials are necessary for making calls to the Azure API and interacting with Azure services during the deployment.
+
+Here's a guide on configuring Azure credentials:
+
+1. **Azure Credentials Configuration**: Azure credentials can be configured in multiple ways. You can refer to the official Ansible documentation [here](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html#authenticating-with-azure) for detailed instructions. Choose one of the authentication methods that best suits your requirements. These credentials will allow you to create and remove the Azure stack using the `create_stack.yml` and `remove_stack.yml` playbooks.
+
+2. **Deployment Playbook Authentication Parameters**: To enable the deployment playbooks (responsible for installing and configuring the BCM cluster manager on your Azure stack), you'll need to make certain authentication parameters available to them. These credentials should be exported to the deployment playbook as variables.
+The variables that need to be configured are listed in the [credentials variable file](./vars/credentials.yml). You can find detailed documentation for these variables in the Azure subsection of the `brightcomputing.installer92` README on the public [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer92/docs/).
+
+Ensuring the correct setup of authentication/credentials is a required step to ensure the successful execution of the playbooks for your Azure-based BCM cluster.
+
+#### 2.2 Configure resource creation parameters
 The example includes two playbooks that are helpful for creating the set of resources: `create_stack.yml` and `remove_stack.yml`. These playbooks can be configured through the `vars/stack.yml` file. You can adjust the variable values in that file to suit your requirements. There is nothing particularly unique about the existing configuration.
 
-#### 2.2 Configure installer parameters
+#### 2.3 Configure installer parameters
 In addition to the mandatory top-level parameters and the network install parameters as specified in [the non-cloud example playbook](../non-cloud/), the Azure deployment type has multiple unique parameters. See [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer92/docs/) for a comprehensive overview. The Azure playbook example sets the following subset of parameters in addition to the mandatory parameters. (also see the YAML configuration files in [`group_vars/head_node`](group_vars/head_node/))
 
 ```yaml
@@ -98,7 +110,7 @@ Next, you can make use of the `prepare.yml` playbook to provisiong the software 
 $ ansible-playbook -i inventory/hosts prepare.yml
 ```
 
-Invoke the playbook and pass it an inventory file specifying a target `head_node` host.
+Invoke the playbook and pass it an inventory file specifying a target `head_node` host. You need to update the [inventory file](./inventory/hosts) with the public IP address that is assigned during the execution of the `create_stack.yml` playbook. Set this IP address as the value of `ansible_host`, replacing the placeholder value of `host.example.com`.
 
 ```sh
 $ ansible-playbook -i inventory/hosts install.yml
