@@ -71,19 +71,23 @@ Ensuring the correct setup of authentication/credentials is a required step to e
 The example includes two playbooks that are helpful for creating the set of resources: `create_stack.yml` and `remove_stack.yml`. These playbooks can be configured through the `vars/stack.yml` file. You can adjust the variable values in that file to suit your requirements. There is nothing particularly unique about the existing configuration.
 
 #### 2.3 Configure installer parameters
-In addition to the mandatory top-level parameters and the network install parameters as specified in [the non-cloud example playbook](../non-cloud/), the Azure deployment type has multiple unique parameters. See [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer92/docs/) for a comprehensive overview. The Azure playbook example sets the following subset of parameters in addition to the mandatory parameters. (also see the YAML configuration files in [`group_vars/head_node`](group_vars/head_node/))
+In addition to the mandatory top-level parameters and the network install parameters as specified in [the non-cloud example playbook](../non-cloud/), the Azure deployment type has multiple unique parameters. See [Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer92/docs/) for a comprehensive overview. The Azure playbook example sets the following subset of parameters in addition to the mandatory parameters. (also see the YAML configuration files in [group_vars/head_node](group_vars/head_node/))
 
+`group_vars/head_node/cluster-settings.yml`:
 ```yaml
 # Azure settings
-cloud: azure
+[ ... ]
+external_interface: eth1
+external_ip_address: DHCP
+[...]
 ```
 
+`group_vars/head_node/cluster-credentials.yml`:
 ```yaml
-# Azure credentials
-azure_cloud_provider_subscription_id: ! vault <encrypted string>
-azure_cloud_provider_client_id: ! vault <encrypted string>
-azure_cloud_provider_client_secret: ! vault <encrypted string>
-azure_cloud_provider_tenant_id: ! vault <encrypted string>
+# Cluster credentials
+product_key: ! vault <encrypted string>
+db_cmd_password: ! vault <encrypted string>
+[ ... ]
 ```
 
 The following settings are automatically configured by the tasks run from `tasks/resolve_azure_params.yml`. They *can* be configured manually, but then it is important to remove those respective tasks from the playbook.
@@ -104,13 +108,13 @@ $ ansible-playbook create_stack.yml -v
 ```
 This will create all the needed resources for a basic non HA BCM deployments.
 
-Next, you can make use of the `prepare.yml` playbook to provisiong the software requirements for the Virtual machine using this command:
+Next, you can make use of the `prepare.yml` playbook to provision the software requirements for the Virtual machine using this command:
 
 ```sh
 $ ansible-playbook -i inventory/hosts prepare.yml
 ```
 
-Invoke the playbook and pass it an inventory file specifying a target `head_node` host. You need to update the [inventory file](./inventory/hosts) with the public IP address that is assigned during the execution of the `create_stack.yml` playbook. Set this IP address as the value of `ansible_host`, replacing the placeholder value of `host.example.com`.
+Invoke the playbook and pass it an inventory file specifying a target `head_node` host. You need to update the [inventory file](./inventory/hosts) with the public IP address that is assigned during the execution of the `create_stack.yml` playbook (In case you created your Azure VM using `create_stack.yml` playbook). Set this IP address as the value of `ansible_host`, replacing the placeholder value of `host.example.com`.
 
 ```sh
 $ ansible-playbook -i inventory/hosts install.yml
