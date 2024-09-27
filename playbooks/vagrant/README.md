@@ -1,7 +1,7 @@
 # Example deployment and playbook: Bright on Vagrant
 
-This example deploys Bright Cluster Manager 9.2 on Vagrant RockyLinux 8.5 virtual machines.
-We assume the user has access to either `cm-config-cm.noarch.rpm` and `cm-config-yum.noarch.rpm` packages for a network install or `bright9.2-rocky8u5.iso` and `bright9.2-rocky8u5.iso.md5` for an iso install.
+This example deploys Bright Cluster Manager 10.0 on Vagrant RockyLinux 8.9 virtual machines.
+We assume the user has access to either `cm-config-cm.noarch.rpm` and `cm-config-yum.noarch.rpm` packages for a network install or `bcm-10.0-rocky8u9.iso` and `bcm-10.0-rocky8u9.iso.md5` for an iso install.
 
 This guide differs from the example playbooks for AWS, Azure, and non-cloud. Namely, it also includes automated provisioning of the Vagrant hosts and the required software dependencies.
 
@@ -40,7 +40,7 @@ The `BRIGHT_PKG_MIRROR` variable must be set to the url from where to dowload `c
 ```
 $ BRIGHT_ISO_MIRROR=<URL-TO-DOWLOAD-ISO-FROM> ./provision --install-iso
 ```
-The `BRIGHT_ISO_MIRROR` variable must be set to the url from where to download `bright9.2-rocky8u5.iso` and `bright9.2-rocky8u5.iso.md5`.
+The `BRIGHT_ISO_MIRROR` variable must be set to the url from where to download `bcm-10.0-rocky8u9.iso` and `bcm-10.0-rocky8u9.iso.md5`.
 
 #### Clean up
 ```
@@ -49,4 +49,4 @@ The `BRIGHT_ISO_MIRROR` variable must be set to the url from where to download `
 
 ## Go further
 
-The [collection on Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer92) provides a comprehensive overview of all the options for installing Bright Cluster head nodes.
+The [collection on Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer100) provides a comprehensive overview of all the options for installing Bright Cluster head nodes.

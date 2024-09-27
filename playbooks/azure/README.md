@@ -23,7 +23,7 @@ This playbook performs a network install of a Bright Cluster head node on Azure.
 
 ## Quickstart guide
 
-This guide assumes that machines are prepared according to the requirements as specified in the [collection on Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer92).
+This guide assumes that machines are prepared according to the requirements as specified in the [collection on Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer100).
 
 ### 1. Install Ansible collection
 
@@ -44,13 +44,11 @@ $ ansible-galaxy collection install -r requirements/ansible.yml
 Install Ansible brightcomputing.installer collection.
 
 ```sh
-$ ansible-galaxy collection install brightcomputing.installer92
+$ ansible-galaxy collection install brightcomputing.installer100
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
-Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/brightcomputing-installer92-14.0.276+gitf0d2650.tar.gz to /home/med/.ansible/tmp/ansible-local-368039xkpcf86/tmprzvnyk32/brightcomputing-installer92-14.0.276+gitf0d2650-_nub6k31
-Installing 'brightcomputing.installer92:14.0.276+gitf0d2650' to '/home/med/.ansible/collections/ansible_collections/brightcomputing/installer92'
-brightcomputing.installer92:14.0.276+gitf0d2650 was installed successfully
+( ... )
 ```
 
 ### 2. Configure parameters
@@ -129,4 +127,4 @@ $ ansible-playbook remove_stack.yml -v
 
 ## Go further
 
-The [collection on Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer92/docs) provides a comprehensive overview of all the options for installing Bright Cluster head nodes.
+The [collection on Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer100/docs) provides a comprehensive overview of all the options for installing Bright Cluster head nodes.

@@ -4,7 +4,7 @@
   become: true # needed to be able to access admin certificate on /root/.cm/admin.{key,pem}
   tasks:
     - name: Create compute nodes
-      brightcomputing.bcm92.physical_node:
+      brightcomputing.bcm100.physical_node:
         hostname: "node00{{ item }}"
         interfaces_NetworkPhysicalInterface:
         - name: BOOTIF

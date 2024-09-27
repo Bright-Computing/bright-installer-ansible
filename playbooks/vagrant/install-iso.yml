@@ -11,12 +11,12 @@
         src: "{{ item }}"
         dest: "{{ ansible_env.HOME }}"
       loop:
-        - bright9.2-rocky8u5.iso
-        - bright9.2-rocky8u5.iso.md5
+        - bcm-10.0-rocky8u9.iso
+        - bcm-10.0-rocky8u9.iso.md5
 
   roles:
-    - role: brightcomputing.installer92.head_node
+    - role: brightcomputing.installer100.head_node
       vars:
         install_medium: dvd
-        install_medium_dvd_path: "{{ ansible_env.HOME }}/bright9.2-rocky8u5.iso"
-        install_medium_dvd_checksum_path: "{{ ansible_env.HOME }}/bright9.2-rocky8u5.iso.md5"
+        install_medium_dvd_path: "{{ ansible_env.HOME }}/bcm-10.0-rocky8u9.iso"
+        install_medium_dvd_checksum_path: "{{ ansible_env.HOME }}/bcm-10.0-rocky8u9.iso.iso.md5"

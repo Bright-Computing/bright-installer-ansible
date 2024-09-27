@@ -12,7 +12,7 @@ This playbook performs a network install of a Bright Cluster head node on a non-
 
 ## Quickstart guide
 
-This guide assumes that machines are prepared according to the requirements as specified in the [collection on Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer92).
+This guide assumes that machines are prepared according to the requirements as specified in the [collection on Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer100).
 
 ### 1. Install Ansible collection
 
@@ -32,18 +32,16 @@ $ pip install -r requirements-control-node.txt
 Install Ansible collection.
 
 ```sh
-$ ansible-galaxy collection install brightcomputing.installer92
+$ ansible-galaxy collection install brightcomputing.installer100
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
-Installing 'brightcomputing.installer92:1.0.149+gitd15f4f6' to '/home/example/.ansible/collections/ansible_collections/brightcomputing/installer'
-Downloading https://galaxy.ansible.com/download/brightcomputing-installer92-1.0.149+gitd15f4f6.tar.gz to /home/example/.ansible/tmp/ansible-local-220503_dk8flv/tmpsip0qgrl
-brightcomputing.installer92 (1.0.149+gitd15f4f6) was installed successfully
+( ... )
 ```
 
 ### 2. Configure parameters
 
-In addition to the mandatory, top-level parameters, the non-cloud deployment type has multiple unique parameters. See [Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer92) for a comprehensive overview. The non-cloud playbook example sets the following subset of parameters in addition to the mandatory parameters. (also see the YAML configuration files in [`group_vars/head_node`](group_vars/head_node/))
+In addition to the mandatory, top-level parameters, the non-cloud deployment type has multiple unique parameters. See [Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer100) for a comprehensive overview. The non-cloud playbook example sets the following subset of parameters in addition to the mandatory parameters. (also see the YAML configuration files in [`group_vars/head_node`](group_vars/head_node/))
 
 ```yaml
 # General cluster settings
@@ -76,4 +74,4 @@ $ ansible-playbook -i inventory/hosts playbook.yml
 
 ## Go further
 
-The [collection on Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer92) provides a comprehensive overview of all the options for installing Bright Cluster head nodes.
+The [collection on Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer100) provides a comprehensive overview of all the options for installing Bright Cluster head nodes.
