@@ -6,9 +6,9 @@
 
   tasks:
     - name: Create software image tarball
-      brightcomputing.installer92.vm_archive:
+      brightcomputing.installer100.vm_archive:
         os_family: RedHat
-        dest: "{{ ansible_env.HOME }}/ROCKY8u5.tar.gz"
+        dest: "{{ ansible_env.HOME }}/ROCKY8u9.tar.gz"
         extra_excludes:
           - /vagrant
           - /home/vagrant

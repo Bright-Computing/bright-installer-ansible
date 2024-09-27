@@ -15,10 +15,10 @@
         - cm-config-yum.noarch.rpm
 
   roles:
-    - role: brightcomputing.installer92.head_node
+    - role: brightcomputing.installer100.head_node
       vars:
         install_medium: network
         install_medium_network_packages:
           - "{{ ansible_env.HOME }}/cm-config-cm.noarch.rpm"
           - "{{ ansible_env.HOME }}/cm-config-yum.noarch.rpm"
-        post_install_default_image_archive: "{{ ansible_env.HOME }}/ROCKY8u5.tar.gz"
+        post_install_default_image_archive: "{{ ansible_env.HOME }}/ROCKY8u9.tar.gz"

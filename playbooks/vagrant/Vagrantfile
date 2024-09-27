@@ -5,10 +5,10 @@ Vagrant.configure("2") do |config|
 
   config.vagrant.plugins = ["vagrant-libvirt"]
 
-  config.vm.define "hn-rocky8u5", primary: true do |head_node|
+  config.vm.define "hn-rocky8u9", primary: true do |head_node|
     head_node.vm.box = "generic/rocky8"
-    head_node.vm.box_version = "3.6.4"
-    head_node.vm.hostname = "hn-rocky8u5"
+    head_node.vm.box_version = "4.3.12"
+    head_node.vm.hostname = "hn-rocky8u9"
 
     head_node.vm.network :private_network,
                          ip: "10.142.255.254",
@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "prepare.yml"
       ansible.verbose = "vvv"
       ansible.groups = {
-        "head_node" => ["hn-rocky8u5"],
+        "head_node" => ["hn-rocky8u9"],
         "compute_node" => ["node001", "node002"],
       }
     end

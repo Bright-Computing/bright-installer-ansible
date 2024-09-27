@@ -16,13 +16,13 @@ files/cm-config-yum.noarch.rpm:
 
 download-repo-packages: | files/cm-config-yum.noarch.rpm files/cm-config-cm.noarch.rpm
 
-files/bright9.2-rocky8u5.iso:
+files/bcm-10.0-rocky8u9.iso:
 	wget ${BRIGHT_ISO_MIRROR}/$(notdir $@) -O $@
 
-files/bright9.2-rocky8u5.iso.md5:
+files/bcm-10.0-rocky8u9.iso:
 	wget ${BRIGHT_ISO_MIRROR}/$(notdir $@) -O $@
 
-download-iso: | files/bright9.2-rocky8u5.iso files/bright9.2-rocky8u5.iso.md5
+download-iso: | files/bcm-10.0-rocky8u9.iso files/bcm-10.0-rocky8u9.iso.md5
 
 clean:
 	rm -rvf files/*.rpm files/*.deb files/*.iso*

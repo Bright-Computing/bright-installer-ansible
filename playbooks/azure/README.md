@@ -23,7 +23,7 @@ This playbook performs a network install of a Bright Cluster head node on Azure.
 
 ## Quickstart guide
 
-This guide assumes that machines are prepared according to the requirements as specified in the [collection on Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer92).
+This guide assumes that machines are prepared according to the requirements as specified in the [collection on Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer100).
 
 ### 1. Install Ansible collection
 
@@ -44,19 +44,24 @@ $ ansible-galaxy collection install -r requirements/ansible.yml
 Install Ansible brightcomputing.installer collection.
 
 ```sh
-$ ansible-galaxy collection install brightcomputing.installer92
+$ ansible-galaxy collection install brightcomputing.installer100
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
-Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/brightcomputing-installer92-14.0.276+gitf0d2650.tar.gz to /home/med/.ansible/tmp/ansible-local-368039xkpcf86/tmprzvnyk32/brightcomputing-installer92-14.0.276+gitf0d2650-_nub6k31
-Installing 'brightcomputing.installer92:14.0.276+gitf0d2650' to '/home/med/.ansible/collections/ansible_collections/brightcomputing/installer92'
-brightcomputing.installer92:14.0.276+gitf0d2650 was installed successfully
+( ... )
+```
+
+For management of Azure resources, also install the `azure.azcollection` collection.
+
+```sh
+$ ansible-galaxy collection install azure.azcollection
 ```
 
 ### 2. Configure parameters
 
 #### 2.1 Configure credentials
 Before proceeding with the playbooks to create Azure resources and later run the deployment playbooks, it's crucial to set up the appropriate credentials for Ansible. These credentials are necessary for making calls to the Azure API and interacting with Azure services during the deployment.
+In addition to the mandatory top-level parameters and the network install parameters as specified in [the non-cloud example playbook](../non-cloud/), the Azure deployment type has multiple unique parameters. See [Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer100) for a comprehensive overview. The Azure playbook example sets the following subset of parameters in addition to the mandatory parameters. (also see the YAML configuration files in [`group_vars/head_node`](group_vars/head_node/))
 
 Here's a guide on configuring Azure credentials:
 
@@ -129,4 +134,4 @@ $ ansible-playbook remove_stack.yml -v
 
 ## Go further
 
-The [collection on Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer92/docs) provides a comprehensive overview of all the options for installing Bright Cluster head nodes.
+The [collection on Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/brightcomputing/installer100/docs) provides a comprehensive overview of all the options for installing Bright Cluster head nodes.
