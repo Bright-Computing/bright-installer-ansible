@@ -51,17 +51,10 @@ Starting collection install process
 ( ... )
 ```
 
-For management of Azure resources, also install the `azure.azcollection` collection.
-
-```sh
-$ ansible-galaxy collection install azure.azcollection
-```
-
 ### 2. Configure parameters
 
 #### 2.1 Configure credentials
 Before proceeding with the playbooks to create Azure resources and later run the deployment playbooks, it's crucial to set up the appropriate credentials for Ansible. These credentials are necessary for making calls to the Azure API and interacting with Azure services during the deployment.
-In addition to the mandatory top-level parameters and the network install parameters as specified in [the non-cloud example playbook](../non-cloud/), the Azure deployment type has multiple unique parameters. See [Ansible Galaxy](https://galaxy.ansible.com/brightcomputing/installer100) for a comprehensive overview. The Azure playbook example sets the following subset of parameters in addition to the mandatory parameters. (also see the YAML configuration files in [`group_vars/head_node`](group_vars/head_node/))
 
 Here's a guide on configuring Azure credentials:
 
